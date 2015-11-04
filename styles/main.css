@@ -193,12 +193,12 @@
 .s9 #scaredTwilight {
   opacity: 0;
   transform: translateX(-300px) rotateX(90deg);
-  transition-delay: 0.3s;
+  transition-delay: 0.2s;
 }
 .s9 #madTwilight {
   opacity: 1;
   transform: translateX(-300px) rotateX(0deg);
-  transition-delay: 0.4s;
+  transition-delay: 0.2s;
 }
 .s10 {
 }
