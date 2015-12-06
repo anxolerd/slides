@@ -1,4 +1,13 @@
+body .reveal {
+    font-size: 48px;
+}
+
+li {
+    margin-bottom: .7em !important;
+}
+
 #vcs-list li {
+    font-size: larger;
     list-style: none;
 }
 
