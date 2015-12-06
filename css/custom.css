@@ -1,0 +1,22 @@
+#vcs-list li {
+    list-style: none;
+}
+
+#vcs-list li:before{
+    content: '';
+    background-size: 100%;
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    margin-right: 1em;
+}
+
+#vcs-list #vcs-subversion:before {
+    background-image: url('../img/subversion.png');
+}
+#vcs-list #vcs-git:before {
+    background-image: url('../img/git.png');
+}
+#vcs-list #vcs-mercurial:before {
+    background-image: url('../img/mercurial.png');
+}
