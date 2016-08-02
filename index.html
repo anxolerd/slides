@@ -1,0 +1,354 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Effective Git</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/night.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+      body {
+        background-image: url('img/bg.png');
+      }
+      .reveal section img {
+        background-color: #FFFFFF;
+        height: 460px;
+        max-width: 95%;
+        max-height: 95%;
+        margin: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Effective git</h1>
+          <aside>Evo summer Python Lab'16</aside>
+        </section>
+        <section>
+          <section>
+            <h2>Internals</h2>
+            <p>
+              To use tool efficiently you should have at least basic understanding how it works
+            </p>
+          </section>
+          <section>
+            <img src="img/repo-folder.png"/>
+            <p>Who knows where is the repo?</p>
+          </section>
+          <section>
+            <img src="img/repo-folder-highlight.png"/>
+            <p>Here it is!</p>
+          </section>
+          <section>
+            <table>
+              <tr>
+                <td width=50%>
+                  <pre><code class="nohighlight">$ tree .git
+.git
+├── branches
+├── config
+├── description
+├── HEAD
+├── hooks
+│   ├── commit-msg.sh
+│   ├── pre-commit.sh
+│   ├── pre-push.sh
+├── info
+│   └── exclude
+├── objects
+│   ├── info
+│   └── pack
+└── refs
+    ├── heads
+    └── tags
+                  </code></pre>
+                </td>
+                <td>
+                  <p>Project-specific configuration in <code>config</code></p>
+                  <p>Hook scripts in <code>hooks</code> dir</p>
+                  <p><code>Branches</code> is <a href="http://stackoverflow.com/a/10398507">deprecated</a></p>
+                  <p><code>Description</code> is used only by web-interface</p>
+                  <p><code>Info</code> includes list of files you do not want track and store in <code>.gitignore</code><p>
+                </td>
+              </tr>
+            </table>
+          </section>
+          <section>
+            <p>Let do some commiting and see what happens</p>
+            <pre class="fragment"><code class="bash">$ echo "Hello, git" > file.txt
+$ git add file.txt
+$ tree .git/objects
+.git/objects
+├── 22
+│   └── f46444d223ec55b7677c6dd212b155fe2a7661
+├── info
+└── pack
+
+3 directories, 1 file </code></pre>
+            <p class="fragment">And what is that object?</p>
+            <pre class="fragment"><code class="bash">$ git cat-file -t 22f46444d223ec55b7677c6dd212b155fe2a766
+blob
+$ git cat-file -p 22f46444d223ec55b7677c6dd212b155fe2a766
+Hello, git </code></pre>
+          </section>
+          <section>
+<pre><code class="bash">$ git commit -m "initial commit"
+[master (root-commit) 6eab0b6] initial commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file.txt</code></pre>
+<pre><code class="bash">$ tree .git/objects
+.git/objects
+├── 10
+│   └── 4e3c6737a206c51479b57a897e4b23e0f273ec
+├── 22
+│   └── f46444d223ec55b7677c6dd212b155fe2a7661
+├── 6e
+│   └── ab0b69da5f82aa580f9adb04950b2f0ece81ab
+├── info
+└── pack
+
+5 directories, 3 files
+$ tree .git/refs
+.git/refs
+├── heads
+│   └── master
+└── tags
+
+2 directories, 1 file</code></pre>
+          </section>
+          <section>
+            <p>Discover new files</p>
+<pre class="fragment"><code class="bash">$ git cat-file -t 104e3c
+tree
+$ git cat-file -p 104e3c
+100644 blob 22f46444d223ec55b7677c6dd212b155fe2a7661	file.txt
+</code></pre>
+<pre class="fragment"><code class="bash">$ git cat-file -t 6eab0b
+commit
+$ git cat-file -p 6eab0b
+tree 104e3c6737a206c51479b57a897e4b23e0f273ec
+author Oleksandr Kovalchuk &lt;anxolerd@outlook.com&gt; 1470087710 +0300
+committer Oleksandr Kovalchuk &lt;anxolerd@outlook.com&gt; 1470087710 +0300
+
+initial commit
+</code></pre>
+<pre class="fragment"><code class="bash">$ cat .git/refs/heads/master
+6eab0b69da5f82aa580f9adb04950b2f0ece81ab
+</code></pre>
+          </section>
+          <section>
+            <p>Go deeper</p>
+<pre class="fragment"><code class="bash">$ echo 'version 1' > test.txt
+$ git hash-object -w test.txt
+83baae61804e65cc73a7201a7252750c76066a30</code></pre>
+<pre class="fragment"><code class="bash">$ echo 'version 2' > test.txt
+$ git hash-object -w test.txt
+1f7a7a472abf3dd9643fd615f6da379c4acb3e3a</code></pre>
+<pre class="fragment"><code class="bash"> git update-index --add --cacheinfo 100644 \
+83baae61804e65cc73a7201a7252750c76066a30 test.txt
+$ git write-tree
+90446980b4e6d9d4972f8529f09512b572b2bbe7
+$ git cat-file -p 904469
+100644 blob 22f46444d223ec55b7677c6dd212b155fe2a7661	file.txt
+100644 blob 83baae61804e65cc73a7201a7252750c76066a30	test.txt </code></pre>
+          </section>
+          <section>
+            <p>Create a commit</p>
+<pre class="fragment"><code class="bash">$ echo "Commit a tree" | git commit-tree 904469 -p 6eab0b
+5121c5edaa0326f94b5a9095f3d8a8e11f85edd3
+$ echo 5121c5edaa0326f94b5a9095f3d8a8e11f85edd3 &gt; .git/refs/heads/master
+$ git log
+commit 5121c5edaa0326f94b5a9095f3d8a8e11f85edd3
+Author: Oleksandr Kovalchuk &lt;anxolerd@outlook.com&gt;
+Date:   Tue Aug 2 01:10:45 2016 +0300
+
+    Commit a tree
+
+commit 6eab0b69da5f82aa580f9adb04950b2f0ece81ab
+Author: Oleksandr Kovalchuk &lt;anxolerd@outlook.com&gt;
+Date:   Tue Aug 2 00:41:50 2016 +0300
+
+    initial commit </code></pre>
+<p class="fragment">Create a new branch</p>
+<pre class="fragment"><code class="bash">$ echo 5121c5edaa0326f94b5a9095f3d8a8e11f85edd3 &gt; .git/refs/heads/test 
+$ git branch
+* master
+  test</code></pre>
+          </section>
+        </section>
+
+        <!-- Part two: flows -->
+        <section>
+          <section>
+            <h2>Flow</h2>
+            <blockquote>
+              You can have extremely experienced developers and use modern tools. But the thing is actually a flow! The flow determines the success of the action.
+            </blockquote>
+          </section>
+          <section>
+            <h3>Centralized flow</h3>
+            <img src="img/centralized-flow.png"/>
+            <p>a.k.a. Hello, VCS</p>
+          </section>
+          <section>
+            <h3>Branch-based flow</h3>
+            <img src="img/branches-flow.png"/>
+            <p>a.k.a. GitHub flow</p>
+          </section>
+          <section>
+            <h3>Git Flow</h3>
+            <img src="img/git-flow-full.png"/>
+            <p>Wait, WTF is that?</p>
+          </section>
+          <section>
+            <p>GitFlow is convention about:</p>
+            <ul>
+              <li class="fragment">branch names</li>
+              <li class="fragment">actions (branch creation and merge)</li>
+            </ul> 
+          </section>
+          <section>
+            <h3>Main branches</h3>
+            <img src="img/git-flow-main.png"/>
+          </section>
+          <section>
+            <h3>Feature branches</h3>
+            <img src="img/git-flow-features.png"/>
+          </section>
+          <section>
+            <h3>Release branches</h3>
+            <img src="img/git-flow-releases.png"/>
+          </section>
+          <section>
+            <h3>Hotfix branches</h3>
+            <img src="img/git-flow-hotfixes.png"/>
+          </section>
+          <section>
+            <h3>Git Flow</h3>
+            <img src="img/git-flow-full.png"/>
+            <p>Now it is not so scary, is it?</p>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Sweeties</h2>
+            <img src="img/sweeties.png"/>
+          </section>
+          <section>
+            <h3>Informative git log</h3>
+            <p>
+              <a href="http://vk.cc/5rTWyf">Yolog</a>
+              wraps over standard git log and represents commit message history in a compact manner. It provides a visualization of commit graph, and shows refs, tags and unmerged branches altogether. 
+            </p>
+            <img src="img/yolog.png" style="height: 200px"/>
+          </section>
+          <section>
+            <img src="img/noway.gif"/>
+            <p><code>man git-log</code> instead!</p>
+            <pre><code class="bash">git log --pretty=oneline --abbrev-commit --graph --decorate</code></pre>
+          </section>
+          <section>
+            <h2>Submodules</h2>
+            <img src="img/submodules.jpg"/>
+            <p><code>man git-submodule</code></p>
+          </section>
+          <section>
+            <h2>Commits recovery</h2>
+            <p><code>man git-reflog</code>. Use logs to find all changes of HEAD</p>
+            <p><code>man git-fsck</code>. Scan git db for dangling objects</p>
+          </section>
+          <section>
+            <h2>Adjust git workflow</h2>
+            <pre><code class="bash">#!/bin/bash
+
+# .git/hooks/pre-commit            
+
+GIT_ROOT=`git rev-parse --show-toplevel`
+if grep --exclude-dir=.git -Fqr 'import pdb' $GIT_ROOT
+then
+    echo "print statement has been found" 1>&2;
+    echo "please fix the issue and commit again" 1>&2;
+    grep --exclude-dir=.git -Fnr 'import pdb' $GIT_ROOT
+    exit 1;
+fi</code></pre>
+          </section>
+          <section>
+            <h2>Finding bug</h2>
+            <img src="img/bug.gif"/>
+            <p><code>man git-bisect</code>. Make git assist you in finding specific commit</p>
+          </section>
+          <section>
+            <h2>Shell help</h2>
+            <img src="img/shell.png" style="height: 400px"/>
+            <p class="fragment">Modify <code>$PS1</code> to see repository information</p>
+            <p class="fragment">Add completion to your shell</p>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>A few more things to remember</h2>
+            <blockquote>
+              Everyone knows about it<br/>
+              From the Queen of England to the Hounds of Hell<br/>
+              <br/>
+              &copy; The White Stripes
+            </blockquote>
+          </section>
+          <section>
+            <p>Some really simple things will help you not to be hated</p>
+            <ul>
+              <li class="fragment">Commit often</li>
+              <li class="fragment">Use meaningful commit messages</li>
+              <li class="fragment">Logically finished and consistent commits</li>
+              <li class="fragment">Do not rewrite public changes (unless it is really necessary)</li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <h2>What to read next</h2>
+          <p class="fragment"><a href="https://git-scm.com/doc">man git</a></p>
+          <p class="fragment"><a href="https://github.com/blog/2019-how-to-undo-almost-anything-with-git">how to undo everything in git</a></p>
+          <p class="fragment"><a href="https://stanfy.com/blog/conflict-free-git-trees-part-1/">Planting git trees</a></p>
+          <p class="fragment"><a href="https://sethrobertson.github.io/GitBestPractices/"/>Git best practices</a></p>
+          <p class="fragment"><a href="http://www.alexkras.com/19-git-tips-for-everyday-use/">Git tips</a></p>
+        </section>
+        <section data-background="img/fin.jpg">&nbsp;</section>
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        history: true,
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/zoom-js/zoom.js', async: true },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+    </script>
+  </body>
+</html>
