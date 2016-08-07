@@ -54,6 +54,9 @@
           <section>
             <img src="img/repo-folder-highlight.png"/>
             <p>Here it is!</p>
+            <aside class="notes">
+              Ask whether someone knows the difference between git init and git init --bare
+            </aside>
           </section>
           <section>
             <table>
@@ -205,16 +208,25 @@ $ git branch
             <h3>Centralized flow</h3>
             <img src="img/centralized-flow.png"/>
             <p>a.k.a. Hello, VCS</p>
+            <aside class="notes">
+              It came from centralised version control systems like svn. A lot of newcomers to git start with it too
+            </aside>
           </section>
           <section>
             <h3>Branch-based flow</h3>
             <img src="img/branches-flow.png"/>
             <p>a.k.a. GitHub flow</p>
+            <aside class="notes">
+              Mention again that branches are cheap in git
+            </aside>
           </section>
           <section>
             <h3>Git Flow</h3>
             <img src="img/git-flow-full.png"/>
             <p>Wait, WTF is that?</p>
+            <aside class="notes">
+              Mention Pustovit's presentation about that
+            </aside>
           </section>
           <section>
             <p>GitFlow is convention about:</p>
@@ -257,16 +269,25 @@ $ git branch
               wraps over standard git log and represents commit message history in a compact manner. It provides a visualization of commit graph, and shows refs, tags and unmerged branches altogether. 
             </p>
             <img src="img/yolog.png" style="height: 200px"/>
+            <aside class="notes">
+              I've seen this once in my social network feed.
+            </aside>
           </section>
           <section>
             <img src="img/noway.gif"/>
             <p><code>man git-log</code> instead!</p>
             <pre><code class="bash">git log --pretty=oneline --abbrev-commit --graph --decorate</code></pre>
+            <aside class="notes">
+              Mention that format can be placed in config
+            </aside>
           </section>
           <section>
             <h2>Submodules</h2>
             <img src="img/submodules.jpg"/>
             <p><code>man git-submodule</code></p>
+            <aside class="notes">
+              Show the usage of submodules. Do not forget to use a bare repo as a github equiv.
+            </aside>
           </section>
           <section>
             <h2>Commits recovery</h2>
@@ -287,6 +308,9 @@ then
     grep --exclude-dir=.git -Fnr 'import pdb' $GIT_ROOT
     exit 1;
 fi</code></pre>
+            <aside class="notes">
+              applypatch-msg, commit-msg, post-update, pre-applypatch, pre-commit, prepare-commit-msg, pre-push, pre-rebase, update
+            </aside>
           </section>
           <section>
             <h2>Finding bug</h2>
@@ -294,10 +318,18 @@ fi</code></pre>
             <p><code>man git-bisect</code>. Make git assist you in finding specific commit</p>
           </section>
           <section>
+            <h2>Who did it?</h2>
+            <img src="img/blame.jpeg"/>
+            <p><code>man git-blame</code></p>
+          </section>
+          <section>
             <h2>Shell help</h2>
             <img src="img/shell.png" style="height: 400px"/>
             <p class="fragment">Modify <code>$PS1</code> to see repository information</p>
             <p class="fragment">Add completion to your shell</p>
+            <aside class="notes">
+              probably change to robbyrussel theme
+            </aside>
           </section>
         </section>
         <section>
@@ -323,7 +355,7 @@ fi</code></pre>
         <section>
           <h2>What to read next</h2>
           <p class="fragment"><a href="https://git-scm.com/doc">man git</a></p>
-          <p class="fragment"><a href="https://github.com/blog/2019-how-to-undo-almost-anything-with-git">how to undo everything in git</a></p>
+          <p class="fragment"><a href="https://github.com/blog/2019-how-to-undo-almost-anything-with-git">How to undo everything in git</a></p>
           <p class="fragment"><a href="https://stanfy.com/blog/conflict-free-git-trees-part-1/">Planting git trees</a></p>
           <p class="fragment"><a href="https://sethrobertson.github.io/GitBestPractices/"/>Git best practices</a></p>
           <p class="fragment"><a href="http://www.alexkras.com/19-git-tips-for-everyday-use/">Git tips</a></p>
