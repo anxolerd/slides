@@ -1,5 +1,7 @@
 .reveal section img {
-    display: block;
-    margin: auto;
-    max-height: 600px;
+  background-color: #FFFFFF;
+  height: 460px;
+  max-width: 95%;
+  max-height: 95%;
+  margin: 15px;
 }

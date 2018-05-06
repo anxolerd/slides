@@ -66,7 +66,10 @@ _by [@anxolerd](https://github.com/anxolerd)_
 
 ### Connect library
 
-    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+```html
+<script src="https://aframe.io/releases/0.8.0/aframe.min.js">
+</script>
+```
 
 >>>>>
 
@@ -83,10 +86,10 @@ _by [@anxolerd](https://github.com/anxolerd)_
 ### Add objects
 
 ```html
-<a-box color="white" rotation="0 45 0" position="0 0.5 0"></a-box>
+<a-box color="white" rotation="0 45 0" 
+       position="0 0.5 0"></a-box>
 <a-cylinder radius="0.2" height="1.5" 
-            color="brown" position="0 0.75 0">
-</a-cylinder>
+            color="brown" position="0 0.75 0"></a-cylinder>
 ```
 
 >>>>>
@@ -111,8 +114,10 @@ _by [@anxolerd](https://github.com/anxolerd)_
 
 ```html
 <a-assets>
-    <a-asset-item id="model" src="model.obj"></a-asset-item>
-    <a-asset-item id="material" src="material.mtl"></a-asset-item>
+    <a-asset-item id="model" src="model.obj">
+    </a-asset-item>
+    <a-asset-item id="material" src="material.mtl">
+    </a-asset-item>
 </a-assets>
 
 <a-entity obj-model="obj: #model; mtl: #material"></a-entity>
@@ -129,4 +134,3 @@ _by [@anxolerd](https://github.com/anxolerd)_
 ## Thanks. Questions?
 
 ![Corgi](images/corgi.gif)
-

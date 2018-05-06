@@ -1,25 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.min.css">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/white.css">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/highlight.js/9.1.0/styles/monokai-sublime.min.css">
-    <link rel="stylesheet" type="text/css" href="custom.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/reveal.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/theme/white.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/css/zenburn.css">
+    <link rel="stylesheet" type="text/css" href="./custom.css">
 
     <!-- Print stylesheet -->
     <script type="text/javascript">
-      var link = document.createElement( 'link' );
+      var link = document.createElement('link');
       link.rel = 'stylesheet';
       link.type = 'text/css';
-      if (window.location.search.match( /print-pdf/gi )) {
-        link.href = '//cdn.jsdelivr.net/reveal.js/3.0.0/css/print/pdf.css';
+      if (window.location.search.match(/print-pdf/gi)) {
+        link.href = '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/print/pdf.min.css';
       } else {
-        link.href = '//cdn.jsdelivr.net/reveal.js/3.0.0/css/print/paper.css';
+        link.href = '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/print/paper.min.css';
       }
-      document.getElementsByTagName( 'head' )[0].appendChild( link );
+      document.getElementsByTagName('head')[0].appendChild(link);
     </script>
   </head>
   <body>
@@ -35,20 +35,19 @@
     </div>
 
 
-    <script src="//cdn.jsdelivr.net/reveal.js/3.0.0/js/reveal.min.js"></script>
-    <script src="//cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/head.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/js/reveal.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/head.min.js"></script>
 
 
     <script>
       Reveal.initialize({
         history: true,
         dependencies: [
-          {src: '//cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/marked.js' },
-          {src: '//cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/markdown.js' },
-          {src: '//cdn.jsdelivr.net/reveal.js/3.0.0/plugin/zoom-js/zoom.js' },
-          {src: '//cdn.jsdelivr.net/reveal.js/3.0.0/plugin/notes/notes.js' },
+          {src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/markdown/marked.js' },
+          {src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/markdown/markdown.min.js' },
+          {src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/notes/notes.min.js' },
           {
-            src: '//cdn.jsdelivr.net/highlight.js/9.8.0/highlight.min.js',
+            src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/highlight/highlight.min.js',
             async: true,
             callback: function() { hljs.initHighlightingOnLoad(); }
           },
