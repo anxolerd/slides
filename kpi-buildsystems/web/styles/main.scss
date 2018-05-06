@@ -1,0 +1,141 @@
+@import "base_styles.css";
+
+/* INITIAL STATE */
+#subtitle: down(20);
+#gulp128: down(110) left(256);
+#grunt128: down(110);
+#webpack128: down(110) right(256);
+#poniesAlert: rotate(90) down(10);
+#obviouslyAlert: rotate(90) down(60);
+#lab01: left(200);
+#lab02: left(200) down(200);
+#proudTwilight: left(400);
+#bigProject: right(200) down(200);
+#scaredTwilight: left(300);
+#madTwilight: left(300) rotate(-90);
+#depsImage: right(256) rotate(-90);
+#bsToTheRescue: scale(0.1,0.1);
+#bsSimplifyFootnote: down(90);
+#demoTime: up(100);
+#demoLink: down(140);
+
+/* SLIDES */
+.s2 {
+  #title: show;
+}
+
+.s3 {
+  #title: up(98);
+  #subtitle: up(10) show;
+  #gulp128: delay(0.2) up(10) show;
+  #grunt128: delay(0.4) up(10) show;
+  #webpack128: delay(0.6) up(10) show;
+}
+
+.s4 {
+  #subtitle: delay(0) rotate(-90) hide;
+  #gulp128: delay(0) rotate(-90) hide;
+  #grunt128: delay(0) rotate(-90) hide;
+  #webpack128: delay(0) rotate(-90) hide;
+  #poniesAlert: delay(0.4) rotate(-90) show;
+  #obviouslyAlert: delay(0.4) rotate(-90) show;
+}
+
+.s5 {
+  #title: up(200) hide;
+  #subtitle: up(200) hide delay(0.2);
+  #poniesAlert: delay(0.2) up(200) hide;
+  #obviouslyAlert: delay(0.4) up(200) hide;
+  #lab01: delay(0.4) show right(200);
+}
+
+.s6 {
+  #lab01: delay(0) up(100);
+  #lab02: show right(200);
+}
+
+.s7 {
+  #lab01: right(200);
+  #lab02: right(200);
+  #proudTwilight: show right(100);
+}
+
+.s8 {
+  #lab01: up(200) hide;
+  #lab02: up(200) hide;
+  #bigProject: up(200) show;
+  #proudTwilight: delay(0.5) hide;
+  #scaredTwilight: delay(0.5) show;
+}
+
+.s9 {
+  #bigProject: rotate(90) hide;
+  #depsImage: delay(0.2) rotate(90) show;
+  #scaredTwilight: delay(0.2) rotate(90) hide;
+  #madTwilight: delay(0.2) rotate(90) show;
+}
+
+.s10 {
+  #depsImage: delay(0) rotate(0,0,90) right(200) hide;
+  #madTwilight: delay(0) left(200) hide;
+  #bsToTheRescue: delay(0.3) scale(1,1) show;
+}
+
+.s11 {
+  #bsToTheRescue: delay(0) up(256) scale(-0.5,-0.5);
+  #bsDefinition: up(10) show;
+}
+
+.s12 {
+  #bsDefinition: rotate(0,0,-90) left(400);
+}
+
+.s13 {
+  #bsResolve: up(10) show;
+}
+
+.s14 {
+  #bsResolve: rotate(0,0,90) right(400);
+  #bsAutomate: up(10) show;
+}
+
+.s15 {
+  #bsAutomate: up(200) right(200) scale(0.7,0.7);
+  #bsDeploy: up(10) show;
+}
+
+.s16 {
+  #bsDeploy: up(200) left(170) scale(0.7,0.7);
+  #bsSimplify: up(10) show;
+}
+
+.s17 {
+  #bsSimplifyFootnote: up(10) show;
+}
+
+.s18 {
+  #bsSimplifyFootnote: rotate(90) hide;
+  #bsSimplify: delay(0.3) scale(1.5,1.5) down(250) right(10);
+}
+
+.s19 {
+  #mlpBored: show;
+}
+
+.s20 {
+  #mlpBored: delay(0) down(400) hide;
+  #bsSimplify: delay(0) down(400) hide;
+  #bsDeploy: delay(0) down(400) hide;
+  #bsAutomate: delay(0) down(400) hide;
+  #bsResolve: delay(0) down(400) hide;
+  #bsDefinition: delay(0) down(400) hide;
+  #bsToTheRescue: delay(0) down(400) hide;
+  #demoTime: delay(0.3) down(100) show;
+  #demoLink: delay(0.5) up(100) show;
+}
+
+.s21 {
+  #demoTime: delay(0) hide;
+  #demoLink: delay(0) hide;
+  #finalSlide: delay(0.3) show;
+}
